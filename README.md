@@ -81,16 +81,16 @@ _Retrieve the list of all products or products for this channel, sorted by creat
 
 ```javascript
 const filter = {
-    limit = 20,
-    page = 2,
-    qualified = null,
-    category_id = null,
-    keyword = null,
-    stock = null,
-    price = null,
-    sort_by = null,
-    sort_asc = null,
-    language = "en"
+    limit : 20,
+    page : 2,
+    qualified : null,
+    category_id : null,
+    keyword : null,
+    stock : null,
+    price : null,
+    sort_by : null,
+    sort_asc : null,
+    language : "en"
   }
 sa.getProducts(filter);
 ```
