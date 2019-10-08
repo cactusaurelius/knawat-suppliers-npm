@@ -34,7 +34,7 @@ class Request {
     };
     if(method.toUpperCase() === 'GET' && Object.keys(options).length > 0){
       // Generate url query paramaters
-      const queryParams = querystring.stringify(options);
+      const queryParams = this.getUrlParams(options);
       url = `${url}?${queryParams}`;
     }
     else{
@@ -45,6 +45,24 @@ class Request {
     .catch(error => {
         throw error;
       });
+  }
+
+  
+  getUrlParams(options) {
+    let nestedParams = "";
+    const optionKeys = Object.keys(options);
+    optionKeys.forEach(k => {
+      if(typeof options[k] === 'object'){
+        const subKeys = Object.keys(options[k]);
+        subKeys.forEach(sk => {
+          nestedParams = `${nestedParams}&${k}[${sk}]=${options[k][sk]}`;
+        })
+        delete options[k]
+      }
+    })
+    const params = querystring.stringify(options);
+    const paramString = `${params}${nestedParams}`;
+    return paramString;
   }
 }
 
