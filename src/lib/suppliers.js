@@ -53,6 +53,29 @@ class Suppliers extends request {
   getSupplierKeys(id) {
     return this.$fetch('GET', `/suppliers/${id}/keys`);
   }
+  
+  /**
+   * Get supplier by id
+   *
+   * @param {*} id
+   * @returns
+   * @memberof Suppliers
+   */
+  getSupplierById(id) {
+    return this.$fetch('GET', `/suppliers/${id}`);
+  }
+
+  /**
+   * Get supplier by email
+   *
+   * @param {*} email - email should be encoded
+   * @returns
+   * @memberof Suppliers
+   */
+  getSupplierByEmail(email) {
+    return this.$fetch('GET', `/suppliers/${email}/users`);
+  }
+
 }
 
 module.exports = Suppliers;
