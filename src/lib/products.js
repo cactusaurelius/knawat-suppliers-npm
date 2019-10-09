@@ -164,8 +164,8 @@ class Products extends request {
    * @memberof Products
    */
   updateProductBySku(sku, data) {
-    return this.$fetch('PUT', `/catalog/update/${sku}`, {
-      body: JSON.stringify({ data })
+    return this.$fetch('PUT', `/catalog/products/${sku}`, {
+      body: JSON.stringify({ data }),
     });
   }
 
