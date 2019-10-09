@@ -177,9 +177,11 @@ class Products extends request {
    * @see
    * @memberof Products
    */
-  updateBulkProduct(data) {
-    return this.$fetch('PATCH', `/catalog/products`, {
-      body: JSON.stringify(data)
+  updateBulkProduct(products) {
+    return this.$fetch('PUT', `/catalog/products`, {
+      body: JSON.stringify({
+        products
+      })
     });
   }
 
