@@ -76,7 +76,11 @@ class Products extends request {
    * @memberof Products
    */
   updateSupplier(supplier) {
-    return this.$fetch('PUT', `/suppliers`,{supplier});
+    return this.$fetch('PUT', `/suppliers`,{
+      body: JSON.stringify({
+        supplier
+      })
+    });
   }
 
   /**
