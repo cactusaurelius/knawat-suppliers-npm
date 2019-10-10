@@ -7,7 +7,6 @@ import request from './request';
  * @class Products
  */
 class Products extends request {
-
   /**
    * Creates an instance of Products.
    *
@@ -23,7 +22,6 @@ class Products extends request {
     this.consumerKey = key;
     this.consumerSecret = secret;
     this.token = token;
-    
   }
 
   /**
@@ -42,7 +40,7 @@ class Products extends request {
 
   set token(val) {
     if (!val) {
-      val = this.token
+      val = this.token;
     }
     this.myToken = val;
     this.headers.authorization = `Bearer ${val}`;
@@ -58,14 +56,13 @@ class Products extends request {
     return this.$fetch('POST', '/token', {
       body: JSON.stringify({
         key: this.consumerKey,
-        secret: this.consumerSecret
-      })
+        secret: this.consumerSecret,
+      }),
     }).then(({ user }) => {
       this.token = user.token;
       return user.token;
     });
   }
-
 
   /**
    * Update supplier
@@ -76,10 +73,10 @@ class Products extends request {
    * @memberof Products
    */
   updateSupplier(supplier) {
-    return this.$fetch('PUT', `/suppliers`,{
+    return this.$fetch('PUT', `/suppliers`, {
       body: JSON.stringify({
-        supplier
-      })
+        supplier,
+      }),
     });
   }
 
@@ -112,7 +109,7 @@ class Products extends request {
     price = null,
     sort_by = null,
     sort_asc = null,
-    language = "tr"
+    language = 'tr',
   } = {}) {
     // Generate url query paramaters
     let queryParams = {
@@ -125,10 +122,10 @@ class Products extends request {
       price,
       sort_by,
       sort_asc,
-      language
+      language,
     };
-    Object.entries(queryParams).forEach( o => (o[1] === null ? delete queryParams[o[0]] : 0));
-    return this.$fetch('GET', `/catalog/products`,queryParams);
+    Object.entries(queryParams).forEach(o => (o[1] === null ? delete queryParams[o[0]] : 0));
+    return this.$fetch('GET', `/catalog/products`, queryParams);
   }
 
   /**
@@ -154,8 +151,8 @@ class Products extends request {
   addProducts(products) {
     return this.$fetch('POST', '/catalog/products', {
       body: JSON.stringify({
-        products
-      })
+        products,
+      }),
     });
   }
 
@@ -167,9 +164,9 @@ class Products extends request {
    * @see https://knawat-suppliers.restlet.io/#operation_update_product
    * @memberof Products
    */
-  updateProductBySku(sku, data) {
+  updateProductBySku(sku, product) {
     return this.$fetch('PUT', `/catalog/products/${sku}`, {
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ product }),
     });
   }
 
@@ -184,8 +181,8 @@ class Products extends request {
   updateBulkProduct(products) {
     return this.$fetch('PUT', `/catalog/products`, {
       body: JSON.stringify({
-        products
-      })
+        products,
+      }),
     });
   }
 
@@ -196,17 +193,14 @@ class Products extends request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_list_of_categories
    * @memberof Products
    */
-  getCategories({
-    parentId = null,
-    level = null
-  } = {}) {
+  getCategories({ parentId = null, level = null } = {}) {
     // get query paramaters
     let queryParams = {};
-    if(parentId && parentId > 0){
-      queryParams.parentId = parentId
+    if (parentId && parentId > 0) {
+      queryParams.parentId = parentId;
     }
-    if(level && level > 0){
-      queryParams.level = level
+    if (level && level > 0) {
+      queryParams.level = level;
     }
     return this.$fetch('GET', `/catalog/categories`, queryParams);
   }
@@ -259,7 +253,7 @@ class Products extends request {
    */
   createOrder(data) {
     return this.$fetch('POST', '/orders', {
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   }
 
@@ -274,7 +268,7 @@ class Products extends request {
    */
   updateOrder(orderId, data) {
     return this.$fetch('PUT', `/orders/${orderId}`, {
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     });
   }
 }
