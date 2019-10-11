@@ -1,7 +1,7 @@
 {
-  "name": "suppliers-sdk",
+  "name": "@knawat/suppliers",
   "version": "1.0.0",
-  "description": "Add products",
+  "description": "A Node.js package for the Knawat Dropshipping Suppliers REST API",
   "module": "dist/index.esm.js",
   "unpkg": "dist/index.js",
   "main": "dist/index.js",
