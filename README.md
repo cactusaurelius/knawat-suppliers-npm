@@ -25,7 +25,7 @@ A Node.js package for Knawat Suppliers REST API. Easily interact with the Knawat
 ## Installation
 
 ```
-npm install --save @knawat/knawat-suppliers-npm
+npm install --save @knawat/suppliers
 ```
 
 ## Getting started
@@ -37,7 +37,10 @@ Check out the Knawat Suppliers REST API endpoints and data that can be manipulat
 Setup for the new Knawat Suppliers REST API integration:
 
 ```javascript
-const { Suppliers, Products } = require('suppliers-sdk');
+// define environment to deploy on production. default is devlopment 
+process.env.KNAWAT_ENV = 'production'
+
+const { Suppliers, Products } = require('@knawat/suppliers');
 
 const sa = new Products({
   key: 'XXXXXXXXXXXXXXXXXXXXXXXXXXX',
@@ -63,7 +66,7 @@ const sa = new Products({
 * BASIC_PASS : XXXXXXXXXX
 */
 
-const { Suppliers, Products } = require('suppliers-sdk');
+const { Suppliers, Products } = require('@knawat/suppliers');
 
 const suppliers = new Suppliers();
 ```
