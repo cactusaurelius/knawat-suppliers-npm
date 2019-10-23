@@ -43,7 +43,6 @@ class Products extends request {
       val = this.token;
     }
     this.myToken = val;
-    this.headers.authorization = `Bearer ${val}`;
   }
 
   /**
