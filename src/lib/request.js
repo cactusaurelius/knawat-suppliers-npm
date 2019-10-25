@@ -28,6 +28,9 @@ class Request {
       const AUTH = Buffer.from(`${config.BASIC_USER}:${config.BASIC_PASS}`).toString('base64');
       this.headers.authorization = `Basic ${AUTH}`;
     }
+    else{
+      this.headers.authorization = `${this.authentication} ${this.token}`;
+    }
     let fetchOptions = {
       method: method,
       headers: this.headers
