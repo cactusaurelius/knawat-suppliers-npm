@@ -10,11 +10,11 @@
   <a href="https://isitmaintained.com/project/Knawat/knawat-suppliers-npm">
     <img src="https://isitmaintained.com/badge/open/Knawat/knawat-suppliers-npm.svg" alt="Percentage of issues still open"/>
   </a>
-  <a href="https://npm-stat.com/charts.html?package=@knawat/knawat-suppliers-npm">
-    <img src="https://img.shields.io/npm/dm/@knawat/knawat-suppliers-npm.svg" alt="npm"/>
+  <a href="https://npm-stat.com/charts.html?package=@knawat/suppliers">
+    <img src="https://img.shields.io/npm/dm/@knawat/suppliers.svg" alt="npm"/>
   </a>
-  <a href="https://www.npmjs.com/package/@knawat/knawat-suppliers-npm">
-    <img src="https://img.shields.io/npm/v/@knawat/knawat-suppliers-npm.svg" alt="npm"/>
+  <a href="https://www.npmjs.com/package/@knawat/suppliers">
+    <img src="https://img.shields.io/npm/v/@knawat/suppliers.svg" alt="npm"/>
   </a>
 </p>
 
