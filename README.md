@@ -16,8 +16,8 @@
   <a href="https://www.npmjs.com/package/@knawat/suppliers">
     <img src="https://img.shields.io/npm/v/@knawat/suppliers.svg" alt="npm"/>
   </a>
-  <a href="https://www.codacy.com?utm_source=bitbucket.org&amp;utm_medium=referral&amp;utm_content=knawat/xml2suppliers&amp;utm_campaign=Badge_Grade">
-    <img src="https://api.codacy.com/project/badge/Grade/42ca6c0d7ee54dbf957ebaedb9342b37"/>
+  <a href="https://www.codacy.com/manual/Knawat/knawat-suppliers-npm?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Knawat/knawat-suppliers-npm&amp;utm_campaign=Badge_Grade">
+    <img src="https://api.codacy.com/project/badge/Grade/08f6c384f3114941b6a882193cb0bb5c"/>
   </a>
 </p>
 
