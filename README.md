@@ -66,9 +66,11 @@ const sa = new Products({
 * BASIC_PASS : XXXXXXXXXX
 */
 
-const { Suppliers, Products } = require('@knawat/suppliers');
+const { Suppliers, Products, WeightRules } = require('@knawat/suppliers');
 
 const suppliers = new Suppliers();
+const weightRules = new WeightRules();
+
 ```
 
 ### Options
@@ -282,6 +284,62 @@ sa.updateSupplier(supplier);
 
 <small>https://knawat-suppliers.restlet.io/#operation_update_a_supplier_2</small>
 
+## Weight Rules Methods
+
+### getWeightRules (Get Weight Rules)
+
+```javascript
+weightRules.getWeightRules();
+```
+
+| Params       | Type     | Description                                  |
+| ------------ | -------- | -------------------------------------------- |
+| `limit`      | `number` | limit of data in response                    |
+| `page`       | `number` | page number                                  |
+| `sort`       | `number` | sort data in response                        |
+
+<small>https://knawat-suppliers.restlet.io/#operation_get_all_weight_rules</small>
+
+### createWeightRule (Create Weight Rules)
+
+```javascript
+weightRules.createWeightRule(weightRules);
+```
+
+| Params          | Type     | Description                                  |
+| --------------- | -------- | -------------------------------------------- |
+| `weightRules`   | `object` | Object of weightRules                        |
+
+"weightRules": { "keyword" : "Shirt", "weight": 5 } 
+
+<small>https://knawat-suppliers.restlet.io/#operation_create_a_supplier</small>
+
+### updateWeightRule (Update Weight Rules)
+
+```javascript
+weightRules.updateWeightRule(id, weightRules);
+```
+
+| Params         | Type     | Description                                  |
+| -------------- | -------- | -------------------------------------------- |
+| `id`           | `string` | Id of weight rule                            |
+| `weightRules`  | `object` | Object of parameters to update               |
+
+"weightRules": { "keyword" : "Shirt", "weight": 5 } 
+
+<small>https://knawat-suppliers.restlet.io/#operation_update_weight_rule</small>
+
+### deleteWeightRule (Delete Weight Rules)
+
+```javascript
+weightRules.deleteWeightRule(id);
+```
+
+| Params         | Type     | Description                                  |
+| -------------- | -------- | -------------------------------------------- |
+| `id`           | `string` | Id of weight rule                            |
+
+<small>https://knawat-suppliers.restlet.io/#operation_delete_weight_rule</small>
 
 ## Reporting Security Issues
 

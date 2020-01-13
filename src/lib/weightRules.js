@@ -55,26 +55,27 @@ class WeightRules extends request {
   /**
    * Update weight rule by id
    *
-   * @param {*} data
+   * @param {*} id
+   * @param {*} weightRules
    * @returns
    * @see https://knawat-suppliers.restlet.io/#operation_update_weight_rule
    * @memberof WeightRules
    */
-  updateWeightRule(id, data) {
+  updateWeightRule(id, weightRules) {
     return this.$fetch('PUT', `/weight_rules/${id}`, {
-      body: JSON.stringify({ data })
+      body: JSON.stringify({ weightRules })
     });
   }
 
   /**
    * Delete weight rule by id
    *
-   * @param {*} data
+   * @param {*} id
    * @returns
    * @see https://knawat-suppliers.restlet.io/#operation_delete_weight_rule
    * @memberof WeightRules
    */
-  deleteWeightRule(id, data) {
+  deleteWeightRule(id) {
     return this.$fetch('DELETE', `/weight_rules/${id}`);
   }
 
