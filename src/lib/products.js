@@ -15,6 +15,7 @@ class Products extends request {
    */
   constructor({ key, secret, token }) {
     super();
+    this.authentication = 'Bearer';
     if ((!key || !secret) && !token) {
       throw new Error('Not a valid consumerKey and consumerSecret or token');
     }
@@ -32,7 +33,7 @@ class Products extends request {
    */
   get token() {
     if (!this.myToken) {
-      return this.refreshToken();
+      return this.getToken();
     }
 
     return this.myToken;
@@ -51,7 +52,8 @@ class Products extends request {
    * @returns
    * @memberof Products
    */
-  refreshToken() {
+  getToken() {
+    this.authentication = false;
     return this.$fetch('POST', '/token', {
       body: JSON.stringify({
         key: this.consumerKey,

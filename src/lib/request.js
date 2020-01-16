@@ -21,15 +21,17 @@ class Request {
    */
   $fetch(method, path, options = {}) {
     let url = `${Request.baseUrl}${path}`;
-    if(this.authentication === 'Basic'){
-      if (!config.BASIC_USER || !config.BASIC_PASS) {
-        throw new Error('no a valid Username and Password');
+    if (this.authentication) {
+      if(this.authentication === 'Basic'){
+        if (!config.BASIC_USER || !config.BASIC_PASS) {
+          throw new Error('no a valid Username and Password');
+        }
+        const AUTH = Buffer.from(`${config.BASIC_USER}:${config.BASIC_PASS}`).toString('base64');
+        this.headers.authorization = `Basic ${AUTH}`;
       }
-      const AUTH = Buffer.from(`${config.BASIC_USER}:${config.BASIC_PASS}`).toString('base64');
-      this.headers.authorization = `Basic ${AUTH}`;
-    }
-    else{
-      this.headers.authorization = `${this.authentication} ${this.token}`;
+      else{
+        this.headers.authorization = `${this.authentication} ${this.token}`;
+      }
     }
     let fetchOptions = {
       method: method,
