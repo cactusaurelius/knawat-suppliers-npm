@@ -53,13 +53,12 @@ class Products extends request {
    * @memberof Products
    */
   getToken() {
-    this.authentication = false;
     return this.$fetch('POST', '/token', {
       body: JSON.stringify({
         key: this.consumerKey,
         secret: this.consumerSecret,
       }),
-    }).then(({ user }) => {
+    },false).then(({ user }) => {
       this.token = user.token;
       return user.token;
     });
