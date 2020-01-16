@@ -19,9 +19,9 @@ class Request {
    * @param {string} path
    * @param {object} options
    */
-  $fetch(method, path, options = {}) {
+  $fetch(method, path, options = {}, needToken = true) {
     let url = `${Request.baseUrl}${path}`;
-    if (this.authentication) {
+    if (needToken) {
       if(this.authentication === 'Basic'){
         if (!config.BASIC_USER || !config.BASIC_PASS) {
           throw new Error('no a valid Username and Password');
