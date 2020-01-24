@@ -20,21 +20,23 @@ class Suppliers extends request {
   /**
    * Get all suppliers
    *
-   * @param  {object} { limit = 20, sort = null}
+   * @param  {object} { limit = 20, page = 1, sort = null}
    * @returns
    * @see https://knawat-suppliers.restlet.io/#operation_get_all_suppliers
    * @memberof Suppliers
    */
   getSuppliers({
     limit = 20,
+    page = 1,
     sort = null
   } = {}) {
     // Generate url query paramaters
     let queryParams = {
       limit,
+      page,
       sort
     };
-    Object.entries(queryParams).forEach( o => (o[1] === null ? delete queryParams[o[0]] : 0));
+    Object.entries(queryParams).forEach(o => o[1] === null ? delete queryParams[o[0]] : 0);
     return this.$fetch('GET', `/suppliers`, queryParams);
   }
 
