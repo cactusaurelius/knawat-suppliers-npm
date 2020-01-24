@@ -19,7 +19,7 @@ class Request {
    * @param {string} path
    * @param {object} options
    */
-  $fetch(method, path, options = {}, needToken = true) {
+  async $fetch(method, path, options = {}, needToken = true) {
     let url = `${Request.baseUrl}${path}`;
     if (needToken) {
       if(this.authentication === 'Basic'){
@@ -30,7 +30,8 @@ class Request {
         this.headers.authorization = `Basic ${AUTH}`;
       }
       else{
-        this.headers.authorization = `${this.authentication} ${this.token}`;
+        const supplierToken = await this.token;
+        this.headers.authorization = `${this.authentication} ${supplierToken}`;
       }
     }
     let fetchOptions = {
