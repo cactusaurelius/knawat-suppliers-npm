@@ -16,7 +16,7 @@ class Request {
     this.pass = config.BASIC_PASS;
   }
 
-  setAuthHeaders(auth) {
+  async setAuthHeaders(auth) {
     if (auth === 'Basic') {
       const AUTH = Buffer.from(`${this.user}:${this.pass}`).toString('base64');
       this.headers.authorization = `Basic ${AUTH}`;
@@ -72,11 +72,11 @@ class Request {
    * @param {object} options
    */
   async $fetch(method, path, options = {}) {
-    this.setAuthHeaders(options.auth || this.authentication);
+    await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
     if (options.queryParams){
       url = `${url}?${this.getUrlParams(options)}`;
-      delete queryParams;
+      delete options.queryParams;
     }
 
     let fetchOptions = {
