@@ -6,6 +6,8 @@ import request from './request';
  * @class Suppliers
  */
 class Suppliers extends request {
+  authentication = 'Basic';
+
   /**
    * Creates an instance of Suppliers.
    *
@@ -14,7 +16,9 @@ class Suppliers extends request {
    */
   constructor() {
     super();
-    this.authentication = 'Basic';
+    if (!config.BASIC_USER || !config.BASIC_PASS) {
+      throw new Error('No valid Username or Password');
+    }
   }
 
   /**
@@ -36,8 +40,7 @@ class Suppliers extends request {
       page,
       sort
     };
-    Object.entries(queryParams).forEach(o => o[1] === null ? delete queryParams[o[0]] : 0);
-    return this.$fetch('GET', `/suppliers`, queryParams);
+    return this.$fetch('GET', `/suppliers`, { queryParams });
   }
 
   /**

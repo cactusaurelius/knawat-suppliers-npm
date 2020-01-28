@@ -6,6 +6,8 @@ import request from './request';
  * @class WeightRules
  */
 class WeightRules extends request {
+  authentication = 'Basic';
+
   /**
    * Creates an instance of WeightRules.
    *
@@ -14,7 +16,9 @@ class WeightRules extends request {
    */
   constructor() {
     super();
-    this.authentication = 'Basic';
+    if (!config.BASIC_USER || !config.BASIC_PASS) {
+      throw new Error('No valid Username or Password');
+    }
   }
 
   /**
@@ -31,13 +35,13 @@ class WeightRules extends request {
     sort = null
   } = {}) {
     // Generate url query paramaters
-    let queryParams = {
+    const queryParams = {
       limit,
       page,
       sort
     };
-    Object.entries(queryParams).forEach( o => (o[1] === null ? delete queryParams[o[0]] : 0));
-    return this.$fetch('GET', `/weight_rules`, queryParams);
+
+    return this.$fetch('GET', `/weight_rules`, { queryParams });
   }
 
   /**
@@ -48,8 +52,8 @@ class WeightRules extends request {
    * @see https://knawat-suppliers.restlet.io/#operation_create_a_supplier
    * @memberof WeightRules
    */
-  createWeightRule(weightRules) {
-    return this.$fetch('POST', `/weight_rules`, weightRules);
+  createWeightRule(queryParams) {
+    return this.$fetch('POST', `/weight_rules`, { queryParams });
   }
 
   /**

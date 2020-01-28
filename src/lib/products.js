@@ -1,4 +1,3 @@
-import querystring from 'querystring';
 import request from './request';
 
 /**
@@ -7,6 +6,8 @@ import request from './request';
  * @class Products
  */
 class Products extends request {
+  authentication = 'Bearer';
+
   /**
    * Creates an instance of Products.
    *
@@ -15,54 +16,14 @@ class Products extends request {
    */
   constructor({ key, secret, token }) {
     super();
-    this.authentication = 'Bearer';
     if ((!key || !secret) && !token) {
       throw new Error('Not a valid consumerKey and consumerSecret or token');
     }
-
     this.consumerKey = key;
     this.consumerSecret = secret;
     this.token = token;
   }
 
-  /**
-   * Generate access token from store key and secret
-   *
-   * @readonly
-   * @memberof Products
-   */
-  get token() {
-    if (!this.myToken) {
-      return this.getToken();
-    }
-
-    return this.myToken;
-  }
-
-  set token(val) {
-    if (!val) {
-      val = this.token;
-    }
-    this.myToken = val;
-  }
-
-  /**
-   * Generates a new access token
-   *
-   * @returns
-   * @memberof Products
-   */
-  getToken() {
-    return this.$fetch('POST', '/token', {
-      body: JSON.stringify({
-        key: this.consumerKey,
-        secret: this.consumerSecret,
-      }),
-    },false).then(({ user }) => {
-      this.token = user.token;
-      return user.token;
-    });
-  }
 
   /**
    * Update supplier
@@ -124,8 +85,7 @@ class Products extends request {
       sort_asc,
       language,
     };
-    Object.entries(queryParams).forEach(o => (o[1] === null ? delete queryParams[o[0]] : 0));
-    return this.$fetch('GET', `/catalog/products`, queryParams);
+    return this.$fetch('GET', `/catalog/products`, { queryParams });
   }
 
   /**
@@ -202,7 +162,7 @@ class Products extends request {
     if (level && level > 0) {
       queryParams.level = level;
     }
-    return this.$fetch('GET', `/catalog/categories`, queryParams);
+    return this.$fetch('GET', `/catalog/categories`, { queryParams });
   }
 
   /**
@@ -215,8 +175,7 @@ class Products extends request {
    * @memberof Products
    */
   getOrders(limit = 25, page = 1) {
-    const params = querystring.stringify({ limit, page });
-    return this.$fetch('GET', `/orders?${params}`);
+    return this.$fetch('GET', `/orders`, { queryParams: { limit, page } });
   }
 
   /**
