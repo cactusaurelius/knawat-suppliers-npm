@@ -34,7 +34,7 @@ class Products extends request {
    * @memberof Products
    */
   updateSupplier(supplier) {
-    return this.$fetch('PUT', `/suppliers`, {
+    return this.$fetch('PUT', '/suppliers', {
       body: JSON.stringify({
         supplier,
       }),
@@ -85,7 +85,7 @@ class Products extends request {
       sort_asc,
       language,
     };
-    return this.$fetch('GET', `/catalog/products`, { queryParams });
+    return this.$fetch('GET', '/catalog/products', { queryParams });
   }
 
   /**
@@ -139,7 +139,7 @@ class Products extends request {
    * @memberof Products
    */
   updateBulkProduct(products) {
-    return this.$fetch('PUT', `/catalog/products`, {
+    return this.$fetch('PUT', '/catalog/products', {
       body: JSON.stringify({
         products,
       }),
@@ -162,7 +162,7 @@ class Products extends request {
     if (level && level > 0) {
       queryParams.level = level;
     }
-    return this.$fetch('GET', `/catalog/categories`, { queryParams });
+    return this.$fetch('GET', '/catalog/categories', { queryParams });
   }
 
   /**
@@ -175,7 +175,7 @@ class Products extends request {
    * @memberof Products
    */
   getOrders(limit = 25, page = 1) {
-    return this.$fetch('GET', `/orders`, { queryParams: { limit, page } });
+    return this.$fetch('GET', '/orders', { queryParams: { limit, page } });
   }
 
   /**

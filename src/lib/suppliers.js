@@ -1,4 +1,5 @@
 import request from './request';
+import config from './config';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -40,7 +41,7 @@ class Suppliers extends request {
       page,
       sort
     };
-    return this.$fetch('GET', `/suppliers`, { queryParams });
+    return this.$fetch('GET', '/suppliers', { queryParams });
   }
 
   /**
@@ -52,7 +53,7 @@ class Suppliers extends request {
    * @memberof Suppliers
    */
   createSupplier(supplier) {
-    return this.$fetch('POST', `/suppliers`, { supplier });
+    return this.$fetch('POST', '/suppliers', { supplier });
   }
 
   

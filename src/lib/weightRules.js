@@ -1,4 +1,5 @@
 import request from './request';
+import config from './config';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -41,7 +42,7 @@ class WeightRules extends request {
       sort
     };
 
-    return this.$fetch('GET', `/weight_rules`, { queryParams });
+    return this.$fetch('GET', '/weight_rules', { queryParams });
   }
 
   /**
@@ -53,7 +54,7 @@ class WeightRules extends request {
    * @memberof WeightRules
    */
   createWeightRule(queryParams) {
-    return this.$fetch('POST', `/weight_rules`, { queryParams });
+    return this.$fetch('POST', '/weight_rules', { queryParams });
   }
 
   /**

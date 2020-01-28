@@ -89,7 +89,7 @@ class Request {
     };
     return fetch(url, fetchOptions)
       .then(res => res.json())
-      .catch(error => { throw error });
+      .catch(error => { throw error; });
   }
 
   
@@ -97,17 +97,17 @@ class Request {
     // clean empty params
     Object.entries(options).forEach(o => o[1] === null ? delete options[o[0]] : 0);
 
-    let nestedParams = "";
+    let nestedParams = '';
     const optionKeys = Object.keys(options);
     optionKeys.forEach(k => {
       if(typeof options[k] === 'object'){
         const subKeys = Object.keys(options[k]);
         subKeys.forEach(sk => {
           nestedParams = `${nestedParams}&${k}[${sk}]=${options[k][sk]}`;
-        })
-        delete options[k]
+        });
+        delete options[k];
       }
-    })
+    });
 
     const params = querystring.stringify(options);
     const paramString = `${params}${nestedParams}`;
