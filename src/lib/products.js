@@ -10,7 +10,7 @@ class Products extends Request {
    * Creates an instance of Products.
    *
    */
-  constructor(args) {
+  constructor(...args) {
     super('Bearer', ...args);
   }
 

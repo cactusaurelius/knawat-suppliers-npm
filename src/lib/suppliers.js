@@ -10,7 +10,7 @@ class Suppliers extends Request {
    * Creates an instance of Suppliers.
    *
    */
-  constructor(args) {
+  constructor(...args) {
     super('Basic', ...args);
   }
   /**

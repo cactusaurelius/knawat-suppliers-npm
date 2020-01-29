@@ -10,7 +10,7 @@ class WeightRules extends Request {
    * Creates an instance of WeightRules.
    *
    */
-  constructor(args) {
+  constructor(...args) {
     super('Basic', ...args);
   }
 
