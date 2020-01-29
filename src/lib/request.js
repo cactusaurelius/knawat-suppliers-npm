@@ -74,8 +74,19 @@ class Request {
   async $fetch(method, path, options = {}) {
     await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
+
     if (options.queryParams) {
-      url += `?${qs.stringify(options.queryParams)}`;
+      // clean empty values
+      const sanitizedQuery = Object.entries(options.queryParams).reduce((acc, [key, val]) => {
+        // remove null and undefined values only
+        if (val === null || val === undefined) {
+          return;
+        }
+        acc[key] = val;
+        return acc;
+      }, {});
+
+      url += `?${qs.stringify(sanitizedQuery)}`;
       delete options.queryParams;
     }
 
