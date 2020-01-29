@@ -11,9 +11,27 @@ class Request {
   static baseUrl = config.SUPPLIERS_API_URL;
   headers = config.HEADERS;
 
-  constructor() {
-    this.user = config.BASIC_USER;
-    this.pass = config.BASIC_PASS;
+  constructor(credentials) {
+    // check for Bearer credentials
+    if (this.authentication === 'Bearer') {
+      if (!credentials || (!credentials.key || !credentials.secret)) {
+        throw new Error('Not a valid consumerKey or consumerSecret');
+      }
+      this.consumerKey = credentials.key;
+      this.consumerSecret = credentials.secret;
+    }
+
+    // check for Basic credentials
+    if (this.authentication === 'Basic') {
+      if (
+        (!config.BASIC_USER || !config.BASIC_PASS) &&
+        (!credentials.user || !credentials.pass)
+      ) {
+        throw new Error('No valid Username or Password');
+      }
+      this.user = config.BASIC_USER || credentials.user;
+      this.pass = config.BASIC_PASS || credentials.pass;
+    }
   }
 
   async setAuthHeaders(auth) {
@@ -77,14 +95,17 @@ class Request {
 
     if (options.queryParams) {
       // clean empty values
-      const sanitizedQuery = Object.entries(options.queryParams).reduce((acc, [key, val]) => {
-        // remove null and undefined values only
-        if (val === null || val === undefined) {
-          return;
-        }
-        acc[key] = val;
-        return acc;
-      }, {});
+      const sanitizedQuery = Object.entries(options.queryParams).reduce(
+        (acc, [key, val]) => {
+          // remove null and undefined values only
+          if (val === null || val === undefined) {
+            return;
+          }
+          acc[key] = val;
+          return acc;
+        },
+        {}
+      );
 
       url += `?${qs.stringify(sanitizedQuery)}`;
       delete options.queryParams;

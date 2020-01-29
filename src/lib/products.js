@@ -9,22 +9,6 @@ class Products extends Request {
   authentication = 'Bearer';
 
   /**
-   * Creates an instance of Products.
-   *
-   * @param {object} activeInstance
-   * @memberof Products
-   */
-  constructor({ key, secret, token }) {
-    super();
-    if ((!key || !secret) && !token) {
-      throw new Error('Not a valid consumerKey and consumerSecret or token');
-    }
-    this.consumerKey = key;
-    this.consumerSecret = secret;
-    this.token = token;
-  }
-
-  /**
    * Update supplier
    *
    *  @param {object}  {"supplier": { "name" : "john", "url": "https://example.com.tr","logo": "https://example.com.tr/logo.png","currency": "TRY", "address": [array of addresses], "contacts": [array of contacts] } }
@@ -72,7 +56,7 @@ class Products extends Request {
     language = 'tr',
   } = {}) {
     // Generate url query paramaters
-    let queryParams = {
+    const queryParams = {
       limit,
       page,
       qualified,

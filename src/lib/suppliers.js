@@ -1,5 +1,4 @@
 import Request from './request';
-import config from './config';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -8,19 +7,6 @@ import config from './config';
  */
 class Suppliers extends Request {
   authentication = 'Basic';
-
-  /**
-   * Creates an instance of Suppliers.
-   *
-   * @param {object} activeInstance
-   * @memberof Suppliers
-   */
-  constructor() {
-    super();
-    if (!config.BASIC_USER || !config.BASIC_PASS) {
-      throw new Error('No valid Username or Password');
-    }
-  }
 
   /**
    * Get all suppliers
@@ -32,7 +18,7 @@ class Suppliers extends Request {
    */
   getSuppliers({ limit = 20, page = 1, sort = null } = {}) {
     // Generate url query paramaters
-    let queryParams = {
+    const queryParams = {
       limit,
       page,
       sort,
