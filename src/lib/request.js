@@ -16,11 +16,15 @@ class Request {
 
     // check for Bearer credentials
     if (authType === 'Bearer') {
-      if (!credentials || (!credentials.key || !credentials.secret)) {
-        throw new Error('Not a valid consumerKey or consumerSecret');
+      if (
+        !credentials ||
+        ((!credentials.key || !credentials.secret) && credentials.token)
+      ) {
+        throw new Error('Not a valid consumerKey, consumerSecret, or token');
       }
       this.consumerKey = credentials.key;
       this.consumerSecret = credentials.secret;
+      this.token = credentials.token;
     }
 
     // check for Basic credentials
