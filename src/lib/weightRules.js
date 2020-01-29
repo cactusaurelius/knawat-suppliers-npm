@@ -1,4 +1,4 @@
-import request from './request';
+import Request from './request';
 import config from './config';
 
 /**
@@ -6,7 +6,7 @@ import config from './config';
  *
  * @class WeightRules
  */
-class WeightRules extends request {
+class WeightRules extends Request {
   authentication = 'Basic';
 
   /**
@@ -30,16 +30,12 @@ class WeightRules extends request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_all_weight_rules
    * @memberof WeightRules
    */
-  getWeightRules({
-    limit = 20,
-    page = null,
-    sort = null
-  } = {}) {
+  getWeightRules({ limit = 20, page = null, sort = null } = {}) {
     // Generate url query paramaters
     const queryParams = {
       limit,
       page,
-      sort
+      sort,
     };
 
     return this.$fetch('GET', '/weight_rules', { queryParams });
@@ -48,7 +44,7 @@ class WeightRules extends request {
   /**
    * Create weight rule
    *
-   * @param {object}  weightRules  { "keyword" : "Shirt", "weight": 5 } 
+   * @param {object}  weightRules  { "keyword" : "Shirt", "weight": 5 }
    * @returns
    * @see https://knawat-suppliers.restlet.io/#operation_create_a_supplier
    * @memberof WeightRules
@@ -68,7 +64,7 @@ class WeightRules extends request {
    */
   updateWeightRule(id, weightRules) {
     return this.$fetch('PUT', `/weight_rules/${id}`, {
-      body: JSON.stringify({ weightRules })
+      body: JSON.stringify({ weightRules }),
     });
   }
 
@@ -83,7 +79,6 @@ class WeightRules extends request {
   deleteWeightRule(id) {
     return this.$fetch('DELETE', `/weight_rules/${id}`);
   }
-
 }
 
 module.exports = WeightRules;

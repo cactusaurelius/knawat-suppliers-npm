@@ -1,11 +1,11 @@
-import request from './request';
+import Request from './request';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
  *
  * @class Products
  */
-class Products extends request {
+class Products extends Request {
   authentication = 'Bearer';
 
   /**
@@ -23,7 +23,6 @@ class Products extends request {
     this.consumerSecret = secret;
     this.token = token;
   }
-
 
   /**
    * Update supplier

@@ -1,4 +1,4 @@
-import request from './request';
+import Request from './request';
 import config from './config';
 
 /**
@@ -6,7 +6,7 @@ import config from './config';
  *
  * @class Suppliers
  */
-class Suppliers extends request {
+class Suppliers extends Request {
   authentication = 'Basic';
 
   /**
@@ -30,16 +30,12 @@ class Suppliers extends request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_all_suppliers
    * @memberof Suppliers
    */
-  getSuppliers({
-    limit = 20,
-    page = 1,
-    sort = null
-  } = {}) {
+  getSuppliers({ limit = 20, page = 1, sort = null } = {}) {
     // Generate url query paramaters
     let queryParams = {
       limit,
       page,
-      sort
+      sort,
     };
     return this.$fetch('GET', '/suppliers', { queryParams });
   }
@@ -56,7 +52,6 @@ class Suppliers extends request {
     return this.$fetch('POST', '/suppliers', { supplier });
   }
 
-  
   /**
    * Get supplier keys
    *
@@ -68,7 +63,7 @@ class Suppliers extends request {
   getSupplierKeys(id) {
     return this.$fetch('GET', `/suppliers/${id}/keys`);
   }
-  
+
   /**
    * Get supplier by id
    *
@@ -90,7 +85,6 @@ class Suppliers extends request {
   getSupplierByEmail(email) {
     return this.$fetch('GET', `/suppliers/${email}/users`);
   }
-
 }
 
 module.exports = Suppliers;
