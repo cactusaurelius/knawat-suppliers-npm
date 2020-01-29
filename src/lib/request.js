@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import querystring from 'querystring';
+import qs from 'qs';
 import config from './config';
 
 /**
@@ -27,7 +27,7 @@ class Request {
       this.headers.authorization = `Bearer ${supplierToken}`;
       return;
     }
-    if (!auth === auth === 'none') {
+    if ((!auth === auth) === 'none') {
       delete this.headers.authorization;
     }
   }
@@ -74,8 +74,8 @@ class Request {
   async $fetch(method, path, options = {}) {
     await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
-    if (options.queryParams){
-      url = `${url}?${this.getUrlParams(options)}`;
+    if (options.queryParams) {
+      url += `?${qs.stringify(options.queryParams)}`;
       delete options.queryParams;
     }
 
@@ -89,29 +89,9 @@ class Request {
     };
     return fetch(url, fetchOptions)
       .then(res => res.json())
-      .catch(error => { throw error; });
-  }
-
-  
-  getUrlParams(options) {
-    // clean empty params
-    Object.entries(options).forEach(o => o[1] === null ? delete options[o[0]] : 0);
-
-    let nestedParams = '';
-    const optionKeys = Object.keys(options);
-    optionKeys.forEach(k => {
-      if(typeof options[k] === 'object'){
-        const subKeys = Object.keys(options[k]);
-        subKeys.forEach(sk => {
-          nestedParams = `${nestedParams}&${k}[${sk}]=${options[k][sk]}`;
-        });
-        delete options[k];
-      }
-    });
-
-    const params = querystring.stringify(options);
-    const paramString = `${params}${nestedParams}`;
-    return paramString;
+      .catch(error => {
+        throw error;
+      });
   }
 }
 
