@@ -11,9 +11,11 @@ class Request {
   static baseUrl = config.SUPPLIERS_API_URL;
   headers = config.HEADERS;
 
-  constructor(credentials) {
+  constructor(authType, credentials) {
+    this.authentication = authType;
+
     // check for Bearer credentials
-    if (this.authentication === 'Bearer') {
+    if (authType === 'Bearer') {
       if (!credentials || (!credentials.key || !credentials.secret)) {
         throw new Error('Not a valid consumerKey or consumerSecret');
       }
@@ -22,7 +24,7 @@ class Request {
     }
 
     // check for Basic credentials
-    if (this.authentication === 'Basic') {
+    if (authType === 'Basic') {
       if (
         (!config.BASIC_USER || !config.BASIC_PASS) &&
         (!credentials.user || !credentials.pass)

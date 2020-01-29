@@ -6,8 +6,13 @@ import Request from './request';
  * @class Suppliers
  */
 class Suppliers extends Request {
-  authentication = 'Basic';
-
+  /**
+   * Creates an instance of Suppliers.
+   *
+   */
+  constructor(args) {
+    super('Basic', ...args);
+  }
   /**
    * Get all suppliers
    *

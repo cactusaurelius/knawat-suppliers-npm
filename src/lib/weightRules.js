@@ -1,5 +1,4 @@
 import Request from './request';
-import config from './config';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -7,19 +6,12 @@ import config from './config';
  * @class WeightRules
  */
 class WeightRules extends Request {
-  authentication = 'Basic';
-
   /**
    * Creates an instance of WeightRules.
    *
-   * @param {object} activeInstance
-   * @memberof WeightRules
    */
-  constructor() {
-    super();
-    if (!config.BASIC_USER || !config.BASIC_PASS) {
-      throw new Error('No valid Username or Password');
-    }
+  constructor(args) {
+    super('Basic', ...args);
   }
 
   /**

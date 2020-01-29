@@ -6,7 +6,13 @@ import Request from './request';
  * @class Products
  */
 class Products extends Request {
-  authentication = 'Bearer';
+  /**
+   * Creates an instance of Products.
+   *
+   */
+  constructor(args) {
+    super('Bearer', ...args);
+  }
 
   /**
    * Update supplier
