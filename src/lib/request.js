@@ -18,7 +18,7 @@ class Request {
     if (authType === 'Bearer') {
       if (
         !credentials ||
-        ((!credentials.key || !credentials.secret) && credentials.token)
+        ((!credentials.key || !credentials.secret) && !credentials.token)
       ) {
         throw new Error('Not a valid consumerKey, consumerSecret, or token');
       }
