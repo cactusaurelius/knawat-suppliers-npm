@@ -27,7 +27,7 @@ class Request {
       this.headers.authorization = `Bearer ${supplierToken}`;
       return;
     }
-    if ((!auth === auth) === 'none') {
+    if (!auth || auth === 'none') {
       delete this.headers.authorization;
     }
   }
