@@ -1,67 +1,17 @@
-import querystring from 'querystring';
-import request from './request';
+import Request from './request';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
  *
  * @class Products
  */
-class Products extends request {
+class Products extends Request {
   /**
    * Creates an instance of Products.
    *
-   * @param {object} activeInstance
-   * @memberof Products
    */
-  constructor({ key, secret, token }) {
-    super();
-    this.authentication = 'Bearer';
-    if ((!key || !secret) && !token) {
-      throw new Error('Not a valid consumerKey and consumerSecret or token');
-    }
-
-    this.consumerKey = key;
-    this.consumerSecret = secret;
-    this.token = token;
-  }
-
-  /**
-   * Generate access token from store key and secret
-   *
-   * @readonly
-   * @memberof Products
-   */
-  get token() {
-    if (!this.myToken) {
-      return this.getToken();
-    }
-
-    return this.myToken;
-  }
-
-  set token(val) {
-    if (!val) {
-      val = this.token;
-    }
-    this.myToken = val;
-  }
-
-  /**
-   * Generates a new access token
-   *
-   * @returns
-   * @memberof Products
-   */
-  getToken() {
-    return this.$fetch('POST', '/token', {
-      body: JSON.stringify({
-        key: this.consumerKey,
-        secret: this.consumerSecret,
-      }),
-    },false).then(({ user }) => {
-      this.token = user.token;
-      return user.token;
-    });
+  constructor(...args) {
+    super('Bearer', ...args);
   }
 
   /**
@@ -73,7 +23,7 @@ class Products extends request {
    * @memberof Products
    */
   updateSupplier(supplier) {
-    return this.$fetch('PUT', `/suppliers`, {
+    return this.$fetch('PUT', '/suppliers', {
       body: JSON.stringify({
         supplier,
       }),
@@ -112,7 +62,7 @@ class Products extends request {
     language = 'tr',
   } = {}) {
     // Generate url query paramaters
-    let queryParams = {
+    const queryParams = {
       limit,
       page,
       qualified,
@@ -124,8 +74,7 @@ class Products extends request {
       sort_asc,
       language,
     };
-    Object.entries(queryParams).forEach(o => (o[1] === null ? delete queryParams[o[0]] : 0));
-    return this.$fetch('GET', `/catalog/products`, queryParams);
+    return this.$fetch('GET', '/catalog/products', { queryParams });
   }
 
   /**
@@ -179,7 +128,7 @@ class Products extends request {
    * @memberof Products
    */
   updateBulkProduct(products) {
-    return this.$fetch('PUT', `/catalog/products`, {
+    return this.$fetch('PUT', '/catalog/products', {
       body: JSON.stringify({
         products,
       }),
@@ -202,7 +151,7 @@ class Products extends request {
     if (level && level > 0) {
       queryParams.level = level;
     }
-    return this.$fetch('GET', `/catalog/categories`, queryParams);
+    return this.$fetch('GET', '/catalog/categories', { queryParams });
   }
 
   /**
@@ -215,8 +164,7 @@ class Products extends request {
    * @memberof Products
    */
   getOrders(limit = 25, page = 1) {
-    const params = querystring.stringify({ limit, page });
-    return this.$fetch('GET', `/orders?${params}`);
+    return this.$fetch('GET', '/orders', { queryParams: { limit, page } });
   }
 
   /**
