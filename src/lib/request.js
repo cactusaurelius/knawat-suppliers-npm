@@ -105,7 +105,7 @@ class Request {
         (acc, [key, val]) => {
           // remove null and undefined values only
           if (val === null || val === undefined) {
-            return;
+            return acc;
           }
           acc[key] = val;
           return acc;
