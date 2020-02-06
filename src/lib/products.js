@@ -15,22 +15,6 @@ class Products extends Request {
   }
 
   /**
-   * Update supplier
-   * TODO: remove this from here
-   *  @param {object}  {"supplier": { "name" : "john", "url": "https://example.com.tr","logo": "https://example.com.tr/logo.png","currency": "TRY", "address": [array of addresses], "contacts": [array of contacts] } }
-   * @returns
-   * @see https://knawat-suppliers.restlet.io/#operation_update_a_supplier_2
-   * @memberof Products
-   */
-  updateSupplier(supplier) {
-    return this.$fetch('PUT', '/suppliers', {
-      body: JSON.stringify({
-        supplier,
-      }),
-    });
-  }
-
-  /**
    * Get all imported products
    *
    * @param {object} {
