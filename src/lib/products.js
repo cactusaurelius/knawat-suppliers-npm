@@ -141,14 +141,25 @@ class Products extends Request {
   /**
    *  Get all current orders
    *
-   * @param {number} [limit=25]
-   * @param {number} [page=1]
+   * @param {object} {
+   *     limit = 20
+   *     page = 1,
+   *     status = open/issued/cancelled/billed/closed/token,
+   *     purchaseorderNumber = PO-xxxx1,
+   *   }
    * @returns
    * @see https://knawat-suppliers.restlet.io/#operation_get_order_s_
    * @memberof Products
    */
-  getOrders(limit = 25, page = 1) {
-    return this.$fetch('GET', '/orders', { queryParams: { limit, page } });
+  getOrders({limit = 20, page = 1,status=null,purchaseorderNumber=null}) {
+    // Generate url query paramaters
+    const queryParams = {
+      limit,
+      page,
+      status,
+      purchaseorderNumber
+    };
+    return this.$fetch('GET', '/orders', { queryParams });
   }
 
   /**
