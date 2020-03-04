@@ -151,13 +151,18 @@ class Products extends Request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_order_s_
    * @memberof Products
    */
-  getOrders({limit = 20, page = 1,status=null,purchaseorderNumber=null}) {
+  getOrders({
+    limit = 20,
+    page = 1,
+    status = null,
+    purchaseorderNumber = null,
+  }) {
     // Generate url query paramaters
     const queryParams = {
       limit,
       page,
       status,
-      purchaseorderNumber
+      purchaseorderNumber,
     };
     return this.$fetch('GET', '/orders', { queryParams });
   }
