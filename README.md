@@ -195,10 +195,12 @@ sa.getCategories();
 sa.getOrders(limit, page);
 ```
 
-| Params  | Type     | Description                                  |
-| ------- | -------- | -------------------------------------------- |
-| `limit` | `Number` | Number of orders to retrieve. `Default: 1`   |
-| `page`  | `Number` | Number of the page to retrieve. `Default: 1` |
+| Params               | Type     | Description                                                  |
+| -------------------- | -------- | ------------------------------------------------------------ |
+| `limit`              | `Number` | Number of orders to retrieve. `Default: 20`                  |
+| `page`               | `Number` | Number of the page to retrieve. `Default: 1`                 |
+| `status`             | `String` | Status of order. `open/issued/cancelled/billed/closed/token` |
+| `purchaseorderNumber`| `String` | String of purchase order number.                             |
 
 <small>https://knawat-suppliers.restlet.io/#operation_get_order_s_</small>
 
