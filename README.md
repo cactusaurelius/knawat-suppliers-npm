@@ -33,7 +33,7 @@ npm install --save @knawat/suppliers
 
 ## Getting started
 
-Check out the Knawat Suppliers REST API endpoints and data that can be manipulated in <https://knawat-suppliers.restlet.io/>.
+Check out the Knawat Suppliers REST API endpoints and data that can be manipulated in [this link](https://docs.knawat.io/?url=https://dev.suppliers.knawat.io/openapi/openapi.json).
 
 ## Setup
 
