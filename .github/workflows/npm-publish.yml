@@ -1,0 +1,25 @@
+name: npm-publish
+
+on:
+  create:
+    tags:
+      - v*
+
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@master
+    - name: Build assets
+      uses: actions/setup-node@master
+      with:
+        node-version: 10.0.0
+    - run: npm install
+    - run: npm run build
+    - name: Publish
+      uses: filipstefansson/set-npm-token-action@v1
+      with:
+        token: ${{ secrets.NPM_AUTH_TOKEN }}
+    - run: npm publish --access public
