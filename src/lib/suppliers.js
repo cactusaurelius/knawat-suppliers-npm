@@ -21,13 +21,7 @@ class Suppliers extends Request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_all_suppliers
    * @memberof Suppliers
    */
-  getSuppliers({ limit = 20, page = 1, sort = null } = {}) {
-    // Generate url query paramaters
-    const queryParams = {
-      limit,
-      page,
-      sort,
-    };
+  getSuppliers(queryParams = {}) {
     return this.$fetch('GET', '/suppliers', { queryParams });
   }
 
