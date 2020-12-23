@@ -33,30 +33,13 @@ class Products extends Request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_list_of_products
    * @memberof Products
    */
-  getProducts({
-    limit = 10,
-    page = 1,
-    qualified = null,
-    category_id = null,
-    keyword = null,
-    stock = null,
-    price = null,
-    sort_by = null,
-    sort_asc = null,
-    language = 'tr',
-  } = {}) {
+  getProducts(params = {}) {
     // Generate url query paramaters
     const queryParams = {
-      limit,
-      page,
-      qualified,
-      category_id,
-      keyword,
-      stock,
-      price,
-      sort_by,
-      sort_asc,
-      language,
+      limit: 20,
+      page: 1,
+      language: tr,
+      ...params,
     };
     return this.$fetch('GET', '/catalog/products', { queryParams });
   }
