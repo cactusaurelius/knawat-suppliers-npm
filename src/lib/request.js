@@ -99,7 +99,7 @@ class Request {
     await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
 
-    if (options.queryParams) {
+    if (options.queryParams && Object.keys(options.queryParams).length) {
       // clean empty values
       const sanitizedQuery = Object.entries(options.queryParams).reduce(
         (acc, [key, val]) => {

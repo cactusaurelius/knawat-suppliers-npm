@@ -22,14 +22,7 @@ class WeightRules extends Request {
    * @see https://knawat-suppliers.restlet.io/#operation_get_all_weight_rules
    * @memberof WeightRules
    */
-  getWeightRules(params = {}) {
-    // Generate url query paramaters
-    const queryParams = {
-      limit: 20,
-      page: 1,
-      ...params,
-    };
-
+  getWeightRules(queryParams = {}) {
     return this.$fetch('GET', '/weight_rules', { queryParams });
   }
 
