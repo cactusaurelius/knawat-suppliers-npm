@@ -46,12 +46,12 @@ class Request {
       this.headers.authorization = `Basic ${AUTH}`;
       return;
     }
-    if (auth === 'Bearer' || auth === 'supplier') {
-      const supplierToken = await this.getTokenAuth();
+    if (auth === 'Bearer') {
+      const supplierToken = await this.getTokenAuth('supplier');
       this.headers.authorization = `Bearer ${supplierToken}`;
       return;
     }
-    if (auth === 'fulfillment') {
+    if (auth === 'BearerFulfillment') {
       const fulfillmentToken = await this.getTokenAuth('fulfillment');
       this.headers.authorization = `Bearer ${fulfillmentToken}`;
       return;
