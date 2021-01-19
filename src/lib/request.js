@@ -46,9 +46,14 @@ class Request {
       this.headers.authorization = `Basic ${AUTH}`;
       return;
     }
-    if (auth === 'Bearer') {
+    if (auth === 'Bearer' || auth === 'supplier') {
       const supplierToken = await this.getTokenAuth();
       this.headers.authorization = `Bearer ${supplierToken}`;
+      return;
+    }
+    if (auth === 'fulfillment') {
+      const fulfillmentToken = await this.getTokenAuth('fulfillment');
+      this.headers.authorization = `Bearer ${fulfillmentToken}`;
       return;
     }
     if (!auth || auth === 'none') {
@@ -62,9 +67,9 @@ class Request {
    * @readonly
    * @memberof Products
    */
-  getTokenAuth() {
+  getTokenAuth(type = 'supplier') {
     if (!this.token) {
-      return this.refreshToken();
+      return this.refreshToken(type);
     }
     return this.token;
   }
@@ -75,8 +80,13 @@ class Request {
    * @returns
    * @memberof Products
    */
-  refreshToken() {
-    return this.$fetch('POST', '/token', {
+  refreshToken(type) {
+    const endpoint = {
+      supplier: '/token',
+      fulfillment: '/fulfillment/token',
+    }[type] || '/token';
+
+    return this.$fetch('POST', endpoint, {
       auth: 'none',
       body: JSON.stringify({
         key: this.consumerKey,
@@ -126,8 +136,8 @@ class Request {
       },
     };
     return fetch(url, fetchOptions)
-      .then(res => res.json())
-      .catch(error => {
+      .then((res) => res.json())
+      .catch((error) => {
         throw error;
       });
   }
