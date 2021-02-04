@@ -78,6 +78,17 @@ class Products extends Request {
       body: JSON.stringify({ product }),
     });
   }
+  /**
+   * Update product external IDs by SKU
+   *
+   * @param {*} sku
+   * @returns
+   * @see https://knawat-suppliers.restlet.io/#operation_update_product
+   * @memberof Products
+   */
+  deleteProductBySku(sku) {
+    return this.$fetch('DEL', `/catalog/products/${sku}`);
+  }
 
   /**
    * Bulk product update
