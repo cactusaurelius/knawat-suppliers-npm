@@ -94,6 +94,16 @@ class Products extends Request {
       }),
     });
   }
+  /**
+   * Delete Product
+   *
+   * @param {*} sku
+   * @returns
+   * @see
+   */
+  deleteProduct(sku) {
+    return this.$fetch('DEL', `/catalog/products/${sku}`);
+  }
 
   /**
    * Get all catalog categories

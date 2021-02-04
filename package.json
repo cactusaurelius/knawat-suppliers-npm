@@ -7,7 +7,7 @@
   "main": "dist/index.js",
   "scripts": {
     "build-o": "SET NODE_ENV=development & node scripts/build",
-    "build": "babel ./src --out-dir dist",
+    "build": "babel ./src --out-dir dist && tsc",
     "dev": "node scripts/watcher",
     "test": "jest",
     "test:coverage": "jest --coverage",
@@ -41,6 +41,7 @@
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-resolve": "0.0.1-predev.1",
+    "typescript": "^4.1.3",
     "uglify-js": "^3.5.2"
   },
   "dependencies": {
