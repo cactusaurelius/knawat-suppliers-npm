@@ -87,7 +87,7 @@ class Products extends Request {
    * @memberof Products
    */
   deleteProductBySku(sku) {
-    return this.$fetch('DEL', `/catalog/products/${sku}`);
+    return this.$fetch('DELETE', `/catalog/products/${sku}`);
   }
 
   /**
