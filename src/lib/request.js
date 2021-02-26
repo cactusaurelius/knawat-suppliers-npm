@@ -1,6 +1,7 @@
 import fetch from 'node-fetch';
 import qs from 'qs';
 import config from './config';
+import stopcock from 'stopcock';
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -13,7 +14,6 @@ class Request {
 
   constructor(authType, credentials) {
     this.authentication = authType;
-
     // check for Bearer credentials
     if (authType === 'Bearer') {
       if (
@@ -25,6 +25,13 @@ class Request {
       this.consumerKey = credentials.key;
       this.consumerSecret = credentials.secret;
       this.token = credentials.token;
+
+      const {apiRateLimit} = credentials
+      this.$fetch = stopcock(this.$fetch, {
+        bucketSize: apiRateLimit.bucketSize || 10,
+        interval: apiRateLimit.interval || 1000,
+        limit: apiRateLimit.limit || 2,
+      });
     }
 
     // check for Basic credentials

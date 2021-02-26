@@ -8,7 +8,7 @@ import Request from './request';
 class Products extends Request {
   /**
    * Creates an instance of Products.
-   *
+   * @param {...(key, secret) || token, apiRateLimit: { bucketSize, interval, limit } }
    */
   constructor(...args) {
     super('Bearer', ...args);
