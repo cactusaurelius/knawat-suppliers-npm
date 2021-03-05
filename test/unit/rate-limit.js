@@ -1,4 +1,4 @@
-import {Products} from '../../src';
+import { Products } from '../../src';
 
 Products.baseUrl = 'https://dev.mp.knawat.io/api';
 const instance = {
@@ -8,9 +8,9 @@ const instance = {
     bucketSize: 10,
     interval: 1000,
     limit: 2,
-  }
+  },
 };
-const client = new Products(instance)
+const client = new Products(instance);
 /**
  * Test Knawat API limit
  */
@@ -18,14 +18,15 @@ const client = new Products(instance)
 const callsToTest = 30;
 const bucketSize = 10;
 const seconds = (callsToTest - bucketSize) / 2;
-jest.setTimeout((callsToTest + 10) * 1000 );
-test(`Throttling ${callsToTest} requests in ${seconds}+ seconds`, async (done) => {
+jest.setTimeout((callsToTest + 10) * 1000);
+test(`Throttling ${callsToTest} requests in ${seconds}+ seconds`, async done => {
   // call endpoint x times, expect to be finish in x / 2 since we have 2 requests per second
   const startDate = new Date();
-  return Promise.all([...Array(callsToTest).keys()].map(() => client.getProducts()))
-    .then(() => {
-      console.log(`Took ${(new Date() - startDate) / 1000} seconds`)
-      expect((new Date() - startDate) / 1000).toBeGreaterThanOrEqual(seconds);
-      done();
-    });
+  return Promise.all(
+    [...Array(callsToTest).keys()].map(() => client.getProducts())
+  ).then(() => {
+    // console.log(`Took ${(new Date() - startDate) / 1000} seconds`)
+    expect((new Date() - startDate) / 1000).toBeGreaterThanOrEqual(seconds);
+    done();
+  });
 });
