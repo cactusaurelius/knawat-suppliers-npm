@@ -120,7 +120,9 @@ class Request {
    * @param {string} path
    * @param {object} options
    */
-  async $fetch(method, path, options = {}) {
+  // Keep unthrottled fetch to use for async routes
+  $fetch = this._fetch;
+  async _fetch(method, path, options = {}) {
     await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
 
