@@ -11,6 +11,7 @@ const instance = {
   },
 };
 const client = new Products(instance);
+const spy = jest.spyOn(client, 'refreshToken');
 /**
  * Test Knawat API limit
  */
@@ -25,7 +26,9 @@ test(`Throttling ${callsToTest} requests in ${seconds}+ seconds`, async done => 
   return Promise.all(
     [...Array(callsToTest).keys()].map(() => client.getProducts())
   ).then(() => {
-    // console.log(`Took ${(new Date() - startDate) / 1000} seconds`)
+    expect(spy).toHaveBeenCalledTimes(1);
+
+    console.log(`Took ${(new Date() - startDate) / 1000} seconds`);
     expect((new Date() - startDate) / 1000).toBeGreaterThanOrEqual(seconds);
     done();
   });

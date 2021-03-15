@@ -26,7 +26,7 @@ class Request {
       this.consumerSecret = credentials.secret;
       this.token = credentials.token;
 
-      const {apiRateLimit} = credentials
+      const { apiRateLimit } = credentials;
       this.$fetch = stopcock(this.$fetch, {
         bucketSize: apiRateLimit.bucketSize || 10,
         interval: apiRateLimit.interval || 1000,
@@ -74,7 +74,9 @@ class Request {
    * @readonly
    * @memberof Products
    */
-  getTokenAuth(type = 'supplier') {
+  async getTokenAuth(type = 'supplier') {
+    // Await in case of rejection
+    await this.token;
     if (!this.token) {
       return this.refreshToken(type);
     }
@@ -88,21 +90,19 @@ class Request {
    * @memberof Products
    */
   refreshToken(type) {
-    const endpoint = {
-      supplier: '/token',
-      fulfillment: '/fulfillment/token',
-    }[type] || '/token';
-
-    return this.$fetch('POST', endpoint, {
+    const endpoint =
+      {
+        supplier: '/token',
+        fulfillment: '/fulfillment/token',
+      }[type] || '/token';
+    this.token = this.$fetch('POST', endpoint, {
       auth: 'none',
       body: JSON.stringify({
         key: this.consumerKey,
         secret: this.consumerSecret,
       }),
-    }).then(({ user }) => {
-      this.token = user.token;
-      return user.token;
-    });
+    }).then(({ user: { token } }) => token);
+    return this.token;
   }
 
   /**
@@ -143,8 +143,8 @@ class Request {
       },
     };
     return fetch(url, fetchOptions)
-      .then((res) => res.json())
-      .catch((error) => {
+      .then(res => res.json())
+      .catch(error => {
         throw error;
       });
   }
