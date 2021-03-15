@@ -1,7 +1,17 @@
 import { I18nString } from '@knawat/types';
 
+interface RateLimit {
+  apiRateLimit?: Partial<{
+    reservoir: string;
+    reservoirRefreshInterval: string;
+    reservoirRefreshAmount: string;
+    maxConcurrent: string;
+  }>;
+}
 export class Products {
-  constructor(args: { key: string; secret: string } | { token: string });
+  constructor(
+    args: { key: string; secret: string } | { token: string } & RateLimit
+  );
   getProducts(): { products: KnawatProduct[]; errors: ResMessage[] };
   addProducts(
     products: KnawatProduct[]
