@@ -1,7 +1,16 @@
 import fetch from 'node-fetch';
 import qs from 'qs';
 import config from './config';
-import stopcock from 'stopcock';
+import Bottleneck from 'bottleneck';
+
+const rateLimitOptions = {
+  // SP Default Rate Limit
+  reservoir: 30,
+  reservoirRefreshInterval: 60 * 1000,
+  reservoirRefreshAmount: 30,
+};
+rateLimitOptions.timeout = rateLimitOptions.reservoirRefreshInterval * 3;
+const group = new Bottleneck.Group(rateLimitOptions);
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -27,11 +36,10 @@ class Request {
       this.token = credentials.token;
 
       const { apiRateLimit } = credentials;
-      this.$fetch = stopcock(this.$fetch, {
-        bucketSize: apiRateLimit.bucketSize || 10,
-        interval: apiRateLimit.interval || 1000,
-        limit: apiRateLimit.limit || 2,
-      });
+      group.updateSettings(apiRateLimit);
+      this.$fetch = group
+        .key(credentials.key || credentials.token)
+        .wrap(this.$fetch);
     }
 
     // check for Basic credentials
