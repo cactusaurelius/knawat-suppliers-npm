@@ -1,6 +1,16 @@
 import fetch from 'node-fetch';
 import qs from 'qs';
 import config from './config';
+import Bottleneck from 'bottleneck';
+
+const rateLimitOptions = {
+  // SP Default Rate Limit
+  reservoir: 30,
+  reservoirRefreshInterval: 60 * 1000,
+  reservoirRefreshAmount: 30,
+};
+rateLimitOptions.timeout = rateLimitOptions.reservoirRefreshInterval * 3;
+const group = new Bottleneck.Group(rateLimitOptions);
 
 /**
  * A Class Library for handling Knawat MarketPlace related Operations.
@@ -13,7 +23,6 @@ class Request {
 
   constructor(authType, credentials) {
     this.authentication = authType;
-
     // check for Bearer credentials
     if (authType === 'Bearer') {
       if (
@@ -25,6 +34,12 @@ class Request {
       this.consumerKey = credentials.key;
       this.consumerSecret = credentials.secret;
       this.token = credentials.token;
+
+      const { apiRateLimit } = credentials;
+      group.updateSettings(apiRateLimit);
+      this.$fetch = group
+        .key(credentials.key || credentials.token)
+        .wrap(this.$fetch);
     }
 
     // check for Basic credentials
@@ -67,7 +82,9 @@ class Request {
    * @readonly
    * @memberof Products
    */
-  getTokenAuth(type = 'supplier') {
+  async getTokenAuth(type = 'supplier') {
+    // Await in case of rejection
+    await this.token;
     if (!this.token) {
       return this.refreshToken(type);
     }
@@ -81,21 +98,19 @@ class Request {
    * @memberof Products
    */
   refreshToken(type) {
-    const endpoint = {
-      supplier: '/token',
-      fulfillment: '/fulfillment/token',
-    }[type] || '/token';
-
-    return this.$fetch('POST', endpoint, {
+    const endpoint =
+      {
+        supplier: '/token',
+        fulfillment: '/fulfillment/token',
+      }[type] || '/token';
+    this.token = this.$fetch('POST', endpoint, {
       auth: 'none',
       body: JSON.stringify({
         key: this.consumerKey,
         secret: this.consumerSecret,
       }),
-    }).then(({ user }) => {
-      this.token = user.token;
-      return user.token;
-    });
+    }).then(({ user: { token } }) => token);
+    return this.token;
   }
 
   /**
@@ -105,7 +120,9 @@ class Request {
    * @param {string} path
    * @param {object} options
    */
-  async $fetch(method, path, options = {}) {
+  // Keep unthrottled fetch to use for async routes
+  $fetch = this._fetch;
+  async _fetch(method, path, options = {}) {
     await this.setAuthHeaders(options.auth || this.authentication);
     let url = `${Request.baseUrl}${path}`;
 
@@ -136,8 +153,8 @@ class Request {
       },
     };
     return fetch(url, fetchOptions)
-      .then((res) => res.json())
-      .catch((error) => {
+      .then(res => res.json())
+      .catch(error => {
         throw error;
       });
   }

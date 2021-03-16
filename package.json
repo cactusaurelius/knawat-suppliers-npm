@@ -45,6 +45,7 @@
     "uglify-js": "^3.5.2"
   },
   "dependencies": {
+    "bottleneck": "^2.19.5",
     "node-fetch": "^2.6.0",
     "qs": "^6.9.1"
   }
