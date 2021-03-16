@@ -22,6 +22,7 @@ export class Products {
     errors: ResMessage[];
   }>;
 
+  // Unthrottled Fetch
   _fetch<T>(...args: any): Promise<T | { errors: ResMessage[] }>;
   $fetch<T>(...args: any): Promise<T | { errors: ResMessage[] }>;
   updateBulkProduct(
