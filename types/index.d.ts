@@ -22,7 +22,9 @@ export class Products {
     errors: ResMessage[];
   }>;
 
-  $fetch(...args: any): Promise<any | { errors: ResMessage[] }>;
+  // Unthrottled Fetch
+  _fetch<T>(...args: any): Promise<T | { errors: ResMessage[] }>;
+  $fetch<T>(...args: any): Promise<T | { errors: ResMessage[] }>;
   updateBulkProduct(
     products: KnawatProduct[]
   ): Promise<{
