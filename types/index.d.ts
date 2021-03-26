@@ -48,13 +48,13 @@ export interface KnawatProduct {
   barcode?: string;
   url: string;
   name: Partial<I18nString>;
-  description?: Partial<I18nString>;
+  description: Partial<I18nString>;
   description_short?: Partial<I18nString>;
-  brand?: Partial<I18nString>;
+  brand: Partial<I18nString>;
   warehouse_id?: string;
   images: string[];
   categories?: number[];
-  attributes?: Array<{
+  attributes: Array<{
     name: Partial<I18nString>;
     options: Partial<I18nString>[];
   }>;
