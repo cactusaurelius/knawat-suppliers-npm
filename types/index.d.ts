@@ -12,12 +12,12 @@ export class Products {
   constructor(
     args: { key: string; secret: string } | { token: string } & RateLimit
   );
-  getProducts(): { products: Partial<SPProduct>[]; errors: ResMessage[] };
+  getProducts(): { products: SPProduct[]; errors: ResMessage[] };
   addProducts(
-    products: Partial<SPProduct>[]
+    products: SPProduct[]
   ): Promise<{
     count: number;
-    products: Partial<SPProduct>[];
+    products: SPProduct[];
     warning: string;
     errors: ResMessage[];
   }>;
