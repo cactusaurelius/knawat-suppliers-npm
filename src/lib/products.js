@@ -164,7 +164,7 @@ class Products extends Request {
    * @memberof Products
    */
   cancelOrder(id) {
-    return this.$fetch('DELETE', `/orders/${id}`);
+    return this.$fetch('PATCH', `/orders/${id}`);
   }
 
   /**
